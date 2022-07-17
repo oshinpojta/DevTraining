@@ -1,20 +1,31 @@
 // ATTENTION: THIS IS CODE FROM THE YOUTUBE CRASH COURSE. IT IS NOT MEANT TO RUN, IT IS JUST FOR LEARNING PURPOSES //
 
+var itemList = document.querySelector("#items");
+console.log(itemList.parentNode);
+itemList.parentElement.style.backgroundColor = "#f4f5f4";
+
+console.log(itemList.children);
+itemList.firstElementChild.textContent = "Hello Man";
+itemList.lastElementChild.textContent = "Bye Man";
+itemList.previousElementSibling.style.color = "red";
+
+var newdiv = document.createElement("div");
+
+newdiv.className = 'hello';
+
+newdiv.id = "hello1";
+
+newdiv.setAttribute("title","Hello Div");
+
+var newdivtext = document.createTextNode("HELLO WORLD!");
+
+newdiv.appendChild(newdivtext);
+newdiv.style.fontSize = "30px";
+var container = document.querySelector("header .container");
+var h1 = document.querySelector("header h1");
+container.insertBefore(newdiv,h1);
 
 
-
-var child2 = document.querySelector(".list-group-item:nth-child(2)");
-child2.style.backgroundColor = "green";
-var child2 = document.querySelector(".list-group-item:nth-child(3)");
-child2.style.visibility = "hidden";
-var items = document.querySelectorAll("li")
-items[1].style.backgroundColor = "green";
-console.log(items[0]);
-console.log(items.length);
-var odditems = document.querySelectorAll("li:nth-child(odd)");
-for(let i=0;i<odditems.length;i++){
-  odditems[i].style.backgroundColor = "green";
-}
 
 /** 
 const username = document.querySelector("#name");
