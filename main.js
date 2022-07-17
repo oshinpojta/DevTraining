@@ -1,5 +1,17 @@
 // ATTENTION: THIS IS CODE FROM THE YOUTUBE CRASH COURSE. IT IS NOT MEANT TO RUN, IT IS JUST FOR LEARNING PURPOSES //
 
+
+
+
+var items = document.getElementsByClassName("list-group-item");
+console.log(items[0]);
+console.log(items.length);
+items[2].style.backgroundColor = "green";
+for(let i=0;i<items.length;i++){
+  items[i].style.fontWeight = "bold";
+}
+
+/** 
 const username = document.querySelector("#name");
 const email = document.querySelector("#email");
 const ul  = document.querySelector("#users");
