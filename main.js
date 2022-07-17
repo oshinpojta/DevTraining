@@ -9,6 +9,12 @@ itemList.firstElementChild.textContent = "Hello Man";
 itemList.lastElementChild.textContent = "Bye Man";
 itemList.previousElementSibling.style.color = "red";
 
+var newdivtext = document.createTextNode("HELLO WORLD!");
+
+var newli = document.createElement("li");
+newli.className = "list-group-item";
+newli.textContent = "Hello";
+itemList.insertBefore(newli, itemList.firstElementChild );
 var newdiv = document.createElement("div");
 
 newdiv.className = 'hello';
@@ -16,8 +22,6 @@ newdiv.className = 'hello';
 newdiv.id = "hello1";
 
 newdiv.setAttribute("title","Hello Div");
-
-var newdivtext = document.createTextNode("HELLO WORLD!");
 
 newdiv.appendChild(newdivtext);
 newdiv.style.fontSize = "30px";
