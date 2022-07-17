@@ -3,12 +3,17 @@
 
 
 
-var items = document.getElementsByTagName("li");
+var child2 = document.querySelector(".list-group-item:nth-child(2)");
+child2.style.backgroundColor = "green";
+var child2 = document.querySelector(".list-group-item:nth-child(3)");
+child2.style.visibility = "hidden";
+var items = document.querySelectorAll("li")
+items[1].style.backgroundColor = "green";
 console.log(items[0]);
 console.log(items.length);
-items[2].style.backgroundColor = "green";
-for(let i=0;i<items.length;i++){
-  items[i].style.fontWeight = "bold";
+var odditems = document.querySelectorAll("li:nth-child(odd)");
+for(let i=0;i<odditems.length;i++){
+  odditems[i].style.backgroundColor = "green";
 }
 
 /** 
