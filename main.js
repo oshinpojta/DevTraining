@@ -1,35 +1,30 @@
 // ATTENTION: THIS IS CODE FROM THE YOUTUBE CRASH COURSE. IT IS NOT MEANT TO RUN, IT IS JUST FOR LEARNING PURPOSES //
 
-var itemList = document.querySelector("#items");
-console.log(itemList.parentNode);
-itemList.parentElement.style.backgroundColor = "#f4f5f4";
+var form = document.querySelector("#addForm");
+var items = document.querySelector("#items");
+form.addEventListener("submit",add);
+var deletebuttons = document.getElementsByClassName("delete");
+for(let i=0;i<deletebuttons.length;i++){
+  deletebuttons[i].addEventListener("click",deleteitem);
+}
+function add(e){
+  e.preventDefault();
+  var newItem = document.getElementById("item");
+  var newli = document.createElement("li");
+  newli.className = "list-group-item";
+  newli.textContent = newItem.value;
+  var deletebutton = document.createElement("button");
+  deletebutton.textContent = "X";
+  deletebutton.className = "btn btn-danger btn-sm float-right delete";
+  deletebutton.addEventListener("click",deleteitem);
+  newli.appendChild(deletebutton);
+  items.appendChild(newli);
+}
 
-console.log(itemList.children);
-itemList.firstElementChild.textContent = "Hello Man";
-itemList.lastElementChild.textContent = "Bye Man";
-itemList.previousElementSibling.style.color = "red";
-
-var newdivtext = document.createTextNode("HELLO WORLD!");
-
-var newli = document.createElement("li");
-newli.className = "list-group-item";
-newli.textContent = "Hello";
-itemList.insertBefore(newli, itemList.firstElementChild );
-var newdiv = document.createElement("div");
-
-newdiv.className = 'hello';
-
-newdiv.id = "hello1";
-
-newdiv.setAttribute("title","Hello Div");
-
-newdiv.appendChild(newdivtext);
-newdiv.style.fontSize = "30px";
-var container = document.querySelector("header .container");
-var h1 = document.querySelector("header h1");
-container.insertBefore(newdiv,h1);
-
-
+function deleteitem(e){
+  e.preventDefault();
+  console.log(e.target.parentNode.remove());
+}
 
 /** 
 const username = document.querySelector("#name");
