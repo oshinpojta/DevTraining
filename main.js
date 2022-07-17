@@ -3,7 +3,7 @@
 
 
 
-var items = document.getElementsByClassName("list-group-item");
+var items = document.getElementsByTagName("li");
 console.log(items[0]);
 console.log(items.length);
 items[2].style.backgroundColor = "green";
