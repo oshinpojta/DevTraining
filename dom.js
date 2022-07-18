@@ -7,12 +7,29 @@ const btn = document.querySelector(".btn")
 const form = document.querySelector("#my-form");
 const show = document.querySelector("#show");
 const msg = document.querySelector(".msg");
+form.style.background = "orange";
 form.addEventListener("submit",onSubmit);
 form.addEventListener("mouseover",onMouseOver);
 form.addEventListener("mouseout",onMouseOut);
 show.addEventListener("click",onShow);
-form.style.background = "orange";
-var br = document.createElement("BR");
+
+var br = document.createElement("br");
+for(let i=0;i<localStorage.length;i++){
+  var li = document.createElement("li");
+  let usernumber = localStorage.key(i);
+  let userJson = JSON.parse(localStorage.getItem(usernumber));
+  console.log(userJson);
+  var userp = document.createElement("h3");
+  console.log(userJson.email);
+  userp.textContent = userJson.username;
+  var emailp = document.createElement("h5");
+  emailp.textContent = userJson.email;
+  li.appendChild(userp);
+  li.appendChild(emailp);
+  li.appendChild(br);
+  ul.appendChild(li)
+}
+
 function onSubmit(e){
   e.preventDefault();
   if(username.value==="" || email.value===""){
@@ -33,14 +50,19 @@ function onSubmit(e){
 
 function onShow(e){
   e.preventDefault();
-  const li = document.createElement("li");
   for(let i=0;i<localStorage.length;i++){
+    var li = document.createElement("li");
     let usernumber = localStorage.key(i);
     let userJson = JSON.parse(localStorage.getItem(usernumber));
     console.log(userJson);
-    li.appendChild(document.createTextNode(userJson["username"]+" => "+userJson["email"]));
+    var userp = document.createElement("p");
+    userp.textContent = userJson.username;
+    var emailp = document.createElement("p");
+    emailp.textContent = userJson.email;
+    li.appendChild(userp);
+    li.appendChild(emailp);
+    li.appendChild(br);
     ul.appendChild(li);
-    ul.insertBefore(br,li);
   } 
 }
 
