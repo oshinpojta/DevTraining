@@ -11,13 +11,31 @@ form.style.background = "orange";
 form.addEventListener("submit",onSubmit);
 form.addEventListener("mouseover",onMouseOver);
 form.addEventListener("mouseout",onMouseOut);
-show.addEventListener("click",onShow);
 
 
 window.addEventListener('DOMContentLoaded', (e) => {
-  var br = document.createElement("br");
+  //display
   for(let i=0;i<localStorage.length;i++){
-    var li = document.createElement("li");
+
+    var editbtn = document.createElement("button");
+    editbtn.className = "edit";
+    editbtn.textContent="Edit";
+    editbtn.style.backgroundColor="cyan";
+    editbtn.style.display = "inline";
+    editbtn.style.padding = "3px";
+    editbtn.style.borderWidth = "3px";
+    editbtn.style.marginRight = "4px";
+    editbtn.addEventListener("click",edituser);
+    var deletebtn = document.createElement("button");
+    deletebtn.className = "delete";
+    deletebtn.textContent = "Delete";
+    deletebtn.style.backgroundColor = "red";
+    deletebtn.style.display = "inline";
+    deletebtn.style.padding = "3px";
+    deletebtn.style.borderWidth = "3px";
+    deletebtn.addEventListener("click",deleteuser);
+
+    let li = document.createElement("li");
     let usernumber = localStorage.key(i);
     let userJson = JSON.parse(localStorage.getItem(usernumber));
     console.log(userJson);
@@ -28,7 +46,8 @@ window.addEventListener('DOMContentLoaded', (e) => {
     emailp.textContent = userJson.email;
     li.appendChild(userp);
     li.appendChild(emailp);
-    li.appendChild(br);
+    li.appendChild(editbtn);
+    li.appendChild(deletebtn);
     ul.appendChild(li)
   }
 });
@@ -42,31 +61,84 @@ function onSubmit(e){
     username.value = "";
     email.value = "";
   }else{
+    const validateuser = localStorage.getItem(email.value);
+    const userObj = JSON.stringify({"username":username.value,"email":email.value});
+    if(validateuser===null){
+      var editbtn = document.createElement("button");
+      editbtn.className = "edit";
+      editbtn.textContent="Edit";
+      editbtn.style.backgroundColor="cyan";
+      editbtn.style.display = "inline";
+      editbtn.style.padding = "3px";
+      editbtn.style.borderWidth = "3px";
+      editbtn.style.marginRight = "4px";
+      editbtn.addEventListener("click",edituser);
+      var deletebtn = document.createElement("button");
+      deletebtn.className = "delete";
+      deletebtn.textContent = "Delete";
+      deletebtn.style.backgroundColor = "red";
+      deletebtn.style.display = "inline";
+      deletebtn.style.padding = "3px";
+      deletebtn.style.borderWidth = "3px";
+      deletebtn.addEventListener("click",deleteuser);
+      
+      let li = document.createElement("li");
+      var userp = document.createElement("h3");
+      userp.textContent = username.value;
+      var emailp = document.createElement("h5");
+      emailp.textContent = email.value;
+      li.appendChild(userp);
+      li.appendChild(emailp);
+      li.appendChild(editbtn);
+      li.appendChild(deletebtn);
+      ul.appendChild(li)
+      localStorage.setItem(email.value,userObj);
+    }else{
+      localStorage.setItem(email.value, userObj);
+      let ulist = ul.children;
+      for(let i=0;i<ulist.length;i++){
+        var userheader = ulist[i].querySelector("h3");
+        var emailheader = ulist[i].querySelector("h5");
+        if(emailheader.textContent.includes(email.value)){
+          userheader.textContent = username.value;
+        }
+        ulist[i].style.display = "list-item";
+      }
+    }
     msg.classList.add("success");
     msg.innerHTML = "Successfully Saved !";
-    const userObj = JSON.stringify({"username":username.value,"email":email.value});
-    localStorage.setItem("user"+(localStorage.length+1), userObj);
+    setTimeout(()=> msg.remove(), 5000);
     username.value = "";
     email.value = "";
   }
 }
 
-function onShow(e){
+function edituser(e){
   e.preventDefault();
-  for(let i=0;i<localStorage.length;i++){
-    var li = document.createElement("li");
-    let usernumber = localStorage.key(i);
-    let userJson = JSON.parse(localStorage.getItem(usernumber));
-    console.log(userJson);
-    var userp = document.createElement("p");
-    userp.textContent = userJson.username;
-    var emailp = document.createElement("p");
-    emailp.textContent = userJson.email;
-    li.appendChild(userp);
-    li.appendChild(emailp);
-    li.appendChild(br);
-    ul.appendChild(li);
-  } 
+  let editli = e.target.parentNode;
+  let ulist = ul.children;
+  for(let i=0;i<ulist.length;i++){
+    var userheader = ulist[i].querySelector("h3");
+    var emailheader = ulist[i].querySelector("h5");
+    if(editli===ulist[i]){
+      ulist[i].style.display = "none";
+    }else{
+      ulist[i].style.display = "list-item";
+    }
+  }
+  let usernameli = editli.querySelector("h3");
+  let emailli = editli.querySelector("h5");
+  console.log(emailli.textContent);
+  username.value = usernameli.textContent;
+  email.value = emailli.textContent;
+}
+
+function deleteuser(e){
+  e.preventDefault();
+  let editli = e.target.parentNode;
+  let emailli = editli.querySelector("h5");
+  localStorage.removeItem(emailli.textContent);
+  e.target.parentNode.remove();
 }
 
 function onMouseOver(e){
