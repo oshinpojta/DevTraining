@@ -13,22 +13,25 @@ form.addEventListener("mouseover",onMouseOver);
 form.addEventListener("mouseout",onMouseOut);
 show.addEventListener("click",onShow);
 
-var br = document.createElement("br");
-for(let i=0;i<localStorage.length;i++){
-  var li = document.createElement("li");
-  let usernumber = localStorage.key(i);
-  let userJson = JSON.parse(localStorage.getItem(usernumber));
-  console.log(userJson);
-  var userp = document.createElement("h3");
-  console.log(userJson.email);
-  userp.textContent = userJson.username;
-  var emailp = document.createElement("h5");
-  emailp.textContent = userJson.email;
-  li.appendChild(userp);
-  li.appendChild(emailp);
-  li.appendChild(br);
-  ul.appendChild(li)
-}
+
+window.addEventListener('DOMContentLoaded', (e) => {
+  var br = document.createElement("br");
+  for(let i=0;i<localStorage.length;i++){
+    var li = document.createElement("li");
+    let usernumber = localStorage.key(i);
+    let userJson = JSON.parse(localStorage.getItem(usernumber));
+    console.log(userJson);
+    var userp = document.createElement("h3");
+    console.log(userJson.email);
+    userp.textContent = userJson.username;
+    var emailp = document.createElement("h5");
+    emailp.textContent = userJson.email;
+    li.appendChild(userp);
+    li.appendChild(emailp);
+    li.appendChild(br);
+    ul.appendChild(li)
+  }
+});
 
 function onSubmit(e){
   e.preventDefault();
