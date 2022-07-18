@@ -2,29 +2,73 @@
 
 var form = document.querySelector("#addForm");
 var items = document.querySelector("#items");
-form.addEventListener("submit",add);
+var filter = document.getElementById("filter");
 var deletebuttons = document.getElementsByClassName("delete");
+
+filter.addEventListener("keyup",filterItems);
+form.addEventListener("submit",add);
+
 for(let i=0;i<deletebuttons.length;i++){
   deletebuttons[i].addEventListener("click",deleteitem);
 }
+
+//add list
 function add(e){
   e.preventDefault();
   var newItem = document.getElementById("item");
+  var newdescription = document.getElementById("description");
   var newli = document.createElement("li");
   newli.className = "list-group-item";
-  newli.textContent = newItem.value;
+  var h5 = document.createElement("h5");
+  h5.textContent = newItem.value;
+  var p = document.createElement("p");
+  p.textContent = newdescription.value;
+  newli.appendChild(h5);
+  newli.appendChild(p);
   var deletebutton = document.createElement("button");
   deletebutton.textContent = "X";
   deletebutton.className = "btn btn-danger btn-sm float-right delete";
   deletebutton.addEventListener("click",deleteitem);
   newli.appendChild(deletebutton);
   items.appendChild(newli);
+  alert("List Item : '"+newItem.value+"' Saved Successfully!");
+  newItem.value = "";
+  newdescription.value = "";
 }
 
+
+//delete 
 function deleteitem(e){
   e.preventDefault();
-  console.log(e.target.parentNode.remove());
+  if(confirm("are you sure ?")){
+    e.target.parentNode.remove();
+  }
+  console.log("deledted item !");
 }
+
+
+//filter 
+function filterItems(e){
+  e.preventDefault();
+  var filtertext = e.target.value.toLowerCase();
+  console.log(" ::: -----  "+filtertext);
+  var lists = items.children;
+  for(let i=0;i<lists.length;i++){
+    let listtext = lists[i].textContent.slice(0,-1).toLowerCase();
+    console.log(listtext);
+    console.log(listtext.includes(filtertext));
+    if(!listtext.includes(filtertext)){
+      lists[i].style.display = "none";
+    }else{
+      lists[i].style.display = "initial";
+    }
+  }
+}
+
+
+
+
+
 
 /** 
 const username = document.querySelector("#name");
