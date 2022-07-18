@@ -1,16 +1,5 @@
 // ATTENTION: THIS IS CODE FROM THE YOUTUBE CRASH COURSE. IT IS NOT MEANT TO RUN, IT IS JUST FOR LEARNING PURPOSES //
 
-document.title = "A Lister Title";
-
-var title = document.getElementById("header-title");
-title.style.border = "solid 3px black";
-var items = document.getElementsByClassName("title");
-items[0].style.fontWeight = "bold";
-items[0].style.color = "green";
-
-
-
-/** 
 const username = document.querySelector("#name");
 const email = document.querySelector("#email");
 const ul  = document.querySelector("#users");
@@ -65,7 +54,7 @@ function onMouseOut(e){
   form.style.background = "orange";
 }
 
-
+/**
 // LOGGING OUTPUT
 alert('Hello World'); // Do not use for debugging. Stops script and only strings
 console.log('Hello World');
